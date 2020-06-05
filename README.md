@@ -106,14 +106,13 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | How can we represent the system in an **architecture diagram**, which gives information both about the Docker containers, the communication protocols and the commands? |
 |  | ![](./images/DiagrammeQuestion1.png) |
 |Question | Who is going to **send UDP datagrams** and **when**? |
-| | *Enter your response here...* |
+| | Lorsqu'un musicien est actif il va envoyer un datagramme UDP chaque seconde |
 |Question | Who is going to **listen for UDP datagrams** and what should happen when a datagram is received? |
-| | *Enter your response here...* |
+| | L'auditeur va éctouer afin de recevoir les datagrammes des musiciens. Lorsqu'il recoit un datagramme, il doit enregistrer ses datas et en plus l'heure a laquelle il les a reçu. |
 |Question | What **payload** should we put in the UDP datagrams? |
-| | *Enter your response here...* |
+| | L'UUID du musicien,le bruit de son instrument et l'heure actuelle. On suppose alors que les containers aient leurs horloges synchronisées. |
 |Question | What **data structures** do we need in the UDP sender and receiver? When will we update these data structures? When will we query these data structures? |
-| | *Enter your response here...* |
-
+| | L'auditeur aura une map (un simple objet en javascript) dont la clé est l'UUID d'un musicien et la data son un objet qui contient l'instrument, l'heure du premier paquet reçu (activeSince) et l'heure du dernier paquet reçu. Lorsqu'il reçoit un datagramme d'un musicien, si l'UUID correspond à une clé de sa map il va update l'heure du dernier paquet reçu sinon il va créer une nouvelle entrée. Toutes les 5 secondes on devrai supprimer les entrées dont le dernier paquet a été reçu il y a plus de 5 secondes.Les musiciens auront des simples objets javascript contenant leur UUID, le bruit de son instrument et l'heure actuelle (au moment de l'envoi du datagramme). Lorsque son image sera run, il faudra update la valeur de l'instrument avec celui qui est passé en paramètre. L'heure actuelle devra être update avant chaque envoi de datagramme. |
 
 ## Task 2: implement a "musician" Node.js application
 
