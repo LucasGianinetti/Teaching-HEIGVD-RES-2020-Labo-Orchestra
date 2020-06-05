@@ -119,21 +119,21 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | In a JavaScript program, if we have an object, how can we **serialize it in JSON**? |
-| | *Enter your response here...*  |
+| | On peut utiliser la fonction JSON.stringify()  |
 |Question | What is **npm**?  |
-| | *Enter your response here...*  |
+| | npm est le gestionnaire de packages pour la plateforme JavaScript Node. Il met des modules en place pour node puisse les trouver et gère intelligemment les conflits de dépendance.  |
 |Question | What is the `npm install` command and what is the purpose of the `--save` flag?  |
-| | *Enter your response here...*  |
+| | La commande installe des packages mis en paramètre dans un dossier local node_modules. L'option --save est par default et permet de mettre a jour les dépendances du fichier _package.json_.  |
 |Question | How can we use the `https://www.npmjs.com/` web site?  |
-| | *Enter your response here...*  |
-|Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
-| | *Enter your response here...*  |
+| | On rentre le nom ("catégorie") d'un module que l'on recherche et une liste des modules disponibles correspondant nous est proposé. Il reste plus qu'a sélectionner le module qui correspond à notre besoin et l'installer avec npm install.
+| |Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
+| | On peut utiliser un module npm appelé uuid, il est compatible avec la norme rfc4122|
 |Question | In Node.js, how can we execute a function on a **periodic** basis? |
-| | *Enter your response here...*  |
+| | En utilisant la fonction setInterval() |
 |Question | In Node.js, how can we **emit UDP datagrams**? |
-| | *Enter your response here...*  |
+| | En utilisant le module _dgram_ qui fournit une implémentation pour les UDP Datagram sockets  |
 |Question | In Node.js, how can we **access the command line arguments**? |
-| | *Enter your response here...*  |
+| |  Il est possible d'obtenir les différents arguments de la command line via l'objet _process.argv_  |
 
 
 ## Task 3: package the "musician" app in a Docker image
