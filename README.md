@@ -120,7 +120,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | ---  | --- |
 |Question | In a JavaScript program, if we have an object, how can we **serialize it in JSON**? |
 | | On peut utiliser la fonction JSON.stringify()  |
-|Question | What is **npm**?  |
+|Question | What is **npm**?  | 
 | | npm est le gestionnaire de packages pour la plateforme JavaScript Node. Il met des modules en place pour node puisse les trouver et gère intelligemment les conflits de dépendance.  |
 |Question | What is the `npm install` command and what is the purpose of the `--save` flag?  |
 | | La commande installe des packages mis en paramètre dans un dossier local node_modules. L'option --save est par default et permet de mettre a jour les dépendances du fichier _package.json_.  |
