@@ -126,7 +126,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | | La commande installe des packages mis en paramètre dans un dossier local node_modules. L'option --save est par default et permet de mettre a jour les dépendances du fichier _package.json_.  |
 |Question | How can we use the `https://www.npmjs.com/` web site?  |
 | | On rentre le nom ("catégorie") d'un module que l'on recherche et une liste des modules disponibles correspondant nous est proposé. Il reste plus qu'a sélectionner le module qui correspond à notre besoin et l'installer avec npm install.
-| |Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
+|Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
 | | On peut utiliser un module npm appelé uuid, il est compatible avec la norme rfc4122|
 |Question | In Node.js, how can we execute a function on a **periodic** basis? |
 | | En utilisant la fonction setInterval() |
