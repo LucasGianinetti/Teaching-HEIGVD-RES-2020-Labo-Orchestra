@@ -108,7 +108,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | Who is going to **send UDP datagrams** and **when**? |
 | | Lorsqu'un musicien est actif il va envoyer un datagramme UDP chaque seconde |
 |Question | Who is going to **listen for UDP datagrams** and what should happen when a datagram is received? |
-| | L'auditeur va éctouer afin de recevoir les datagrammes des musiciens. Lorsqu'il recoit un datagramme, il doit enregistrer ses datas et en plus l'heure a laquelle il les a reçu. |
+| | L'auditeur va éctouer afin de recevoir les datagrammes des musiciens. Lorsqu'il recoit un datagramme, il doit enregistrer/mettre à jour ses datas. |
 |Question | What **payload** should we put in the UDP datagrams? |
 | | L'UUID du musicien,le bruit de son instrument et l'heure actuelle. On suppose alors que les containers aient leurs horloges synchronisées. |
 |Question | What **data structures** do we need in the UDP sender and receiver? When will we update these data structures? When will we query these data structures? |
