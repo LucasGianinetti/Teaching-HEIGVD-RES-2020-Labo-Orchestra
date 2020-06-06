@@ -1,0 +1,15 @@
+{
+  "name": "musician",
+  "version": "1.0.0",
+  "description": "Musician for UDP lab",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lucas Gianinetti, Nicolas Hungerbühler",
+  "license": "ISC",
+  "dependencies": {
+    "date-and-time": "^0.13.1",
+    "uuid": "^8.1.0"
+  }
+}
