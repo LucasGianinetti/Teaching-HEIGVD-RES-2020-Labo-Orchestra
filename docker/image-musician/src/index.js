@@ -16,7 +16,7 @@ instruments.set("drum","boum-boum");
 if(process.argv.length != 3) {
 	console.log("You need to proceed an instrument");
 	process.exit(-1);
-}else if(!instruments.has(process.argv[2]){
+}else if(!instruments.has(process.argv[2])){
 	console.log("The instrument you proceed is not valid!");
 	process.exit(-1);
 }
@@ -24,25 +24,26 @@ if(process.argv.length != 3) {
 var instrument = process.argv[2];
 
 const musician = new Object();
-musician.sound = instrumets.get(instrument);
+musician.sound = instruments.get(instrument);
 musician.id = uuidv4();
 musician.activeSince = new Date();
 
 const protocol = {
-	PROTOCOL_PORT: 2222,
+	PROTOCOL_PORT: '2222',
 	PROTOCOL_MULTICAST_ADDRESS: '239.255.0.1'
 }
 
 //every 1000s we send an udp datagram with the musician's data + current time
 setInterval(function(){
+	const now = new Date();
 	const message = Buffer.from(JSON.stringify({
-		uuid: musician.uuid,
+		uuid: musician.id,
 		sound: musician.sound,
 		activeSince: musician.activeSince,
-		sendTime: new Date(),
+		sendTime: now
 	}));
-	s.send(message,0,message.length, protocol.PORT, protocol.MULTICAST,function(err,bytes){
-        	console.log("Sending payload: " + payload + " via port " + s.address().port);
+	s.send(message,0,message.length, protocol.PROTOCOL_PORT, protocol.PROTOCOL_MULTICAST_ADDRESS,function(err,bytes){
+        	console.log("Sending payload: " + message + " via port " + s.address().port);
 	});
 
 }, 1000);

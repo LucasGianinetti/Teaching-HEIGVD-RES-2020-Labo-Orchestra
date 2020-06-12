@@ -1,16 +1,17 @@
 const dgram = require('dgram');
 const net = require('net');
+const date = require('date-and-time');
+const {v4: uuidv4} = require('uuid');
 
 const s = dgram.createSocket('udp4');
 
 const protocol_UDP = {
-	PROTOCOL_PORT: 2222,
+	PROTOCOL_PORT: '2222',
 	PROTOCOL_MULTICAST_ADDRESS: '239.255.0.1'
 }
 
 const protocol_TCP = {
-	PROTOCOL_PORT: 2205,
-	PROTOCOL_ADDRESS: 127.0.0.1
+	PROTOCOL_PORT: '2205'
 }
 
 
@@ -22,60 +23,98 @@ s.bind(protocol_UDP.PROTOCOL_PORT, function() {
 
 const musicians = new Map();
 
-const  musician = new Object();;
+var  musician = new Object();
 
 const instruments = new Map();
-instruments.set("piano","ti-ta-ti");
-instruments.set("trumpet","pouet");
-instruments.set("flute", "trulu");
-instruments.set("violin","gzi-gzi");
-instruments.set("drum","boum-boum");
+instruments.set("ti-ta-ti","piano");
+instruments.set("pouet","trumpet");
+instruments.set("trulu","flute");
+instruments.set("gzi-gzi","violin");
+instruments.set("boum-boum","drum");
 
 
 var instrument;
 s.on('message', function(msg,source){
+	const toString = JSON.parse(msg.toString());
 
-	if(!musicians.has(msg.uuid)){
-
-		instrument = instruments.get(msg.sound);
-		musician = new Object();
+	if(!musicians.has(toString.uuid)){
+		console.log("Je ne suis pas encore dans la map");
+		instrument = instruments.get(toString.sound);
+		console.log("Instrument: " + instrument);
 		musician.instrument = instrument;
-		musician.activeSince = msg.activeSince;
-		musician.sendTime = msg.sendTime;
+		musician.activeSince = toString.activeSince;
+		musician.sendTime = toString.sendTime;
 
-		musicians.set(msg.uuid,musician);
+		musicians.set(toString.uuid,musician);
 	}else{
-		musician = musicians.get(msg.uuid);
-		musician.sendTime = msg.sendTime;
-		musicians.set(msg.uuid,musician);
+		console.log("La valeur de sendTime va etre update");
+		musician = musicians.get(toString.uuid);
+		musician.sendTime = toString.sendTime;
+		musicians.set(toString.uuid,musician);
 	}
 	console.log("Data has arrived: " + msg + ". Source IP: " + source.address + ". Source port: " + source.port);
 });
 
 net.createServer((sock) => {
-	var payload = [];
+	let musiciansArray = [];
 
-	for(let [uuid, musician] of musicians.entries()) {
-		payload.push({
+	for(let [uuid,musician] of musicians) {
+		musiciansArray.push({
 			uuid: uuid,
 			instrument: musician.instrument,
 			activeSince: musician.activeSince,
 		});
 	}
 	
-	sock.write(JSON.stringify(payload));
-}).listen(protocol_TCP.PROTOCOL_PORT, protocol_TCP.PROTOCOL_ADDRESS);
+	sock.write(JSON.stringify(musiciansArray));
+}).listen(protocol_TCP.PROTOCOL_PORT);
 
 
 
 setInterval(function(){
-	for( let [uuid, musician] of musicians.entries()) {
-		if(date.substract(new Date(),musician.sendTime).toSeconds() > 5){
-			musicians.delete(musician);
+	for( let [uuid, musician] of musicians) {
+		if(date.subtract(new Date(),new Date(musician.sendTime)).toSeconds() > 5){
+			musicians.delete(uuid);
 		}
 	}
 
 }, 5000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

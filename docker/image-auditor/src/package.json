@@ -7,5 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Lucas Gianinetti Nicolas Hungerbühler",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "date-and-time": "^0.13.1",
+    "dgram": "^1.0.1",
+    "net": "^1.0.2",
+    "uuid": "^8.1.0"
+  }
 }

@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "date-and-time": "^0.13.1",
+    "dgram": "^1.0.1",
     "uuid": "^8.1.0"
   }
 }
