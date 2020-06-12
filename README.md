@@ -141,17 +141,17 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | How do we **define and build our own Docker image**?|
-| | *Enter your response here...*  |
+| | Depuis le dossier ou se trouve le Dockerfile: docker build -t nomImage . |
 |Question | How can we use the `ENTRYPOINT` statement in our Dockerfile?  |
-| | *Enter your response here...*  |
+| |   |
 |Question | After building our Docker image, how do we use it to **run containers**?  |
-| | *Enter your response here...*  |
+| | docker run -d nomImage, si l'on a besoin de mapper des ports on peut utiliser l'option -p.  |
 |Question | How do we get the list of all **running containers**?  |
-| | *Enter your response here...*  |
+| | docker ps  |
 |Question | How do we **stop/kill** one running container?  |
-| | *Enter your response here...*  |
+| | docker kill nomContainer  |
 |Question | How can we check that our running containers are effectively sending UDP datagrams?  |
-| | *Enter your response here...*  |
+| | sudo tcpdump -i docker0 'port 2222'  |
 
 
 ## Task 4: implement an "auditor" Node.js application
@@ -159,15 +159,18 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | ---  |
 |Question | With Node.js, how can we listen for UDP datagrams in a multicast group? |
-| | *Enter your response here...*  |
+| | On utilise la methode addMembership sur un socket dgram.  |
 |Question | How can we use the `Map` built-in object introduced in ECMAScript 6 to implement a **dictionary**?  |
-| | *Enter your response here...* |
+| | En crééant une map selon la documentation |
 |Question | How can we use the `Moment.js` npm module to help us with **date manipulations** and formatting?  |
-| | *Enter your response here...* |
+| | Nous avons utilisé le module date-and-time à la place de Moment.js. Il suffit de l'installer, puis
+de préciser en au du fichier js dans lequel on veut l'utiliser require(date-and-time). Une méthode new Date()
+permet d'avoir la date actuelle. et la methode subtract(date1,date2).seconds() permet de connaître la différence entre 2 dates en secondes.|
 |Question | When and how do we **get rid of inactive players**?  |
-| | *Enter your response here...* |
+| | Grâce à setInterval nous exécutons le code d'une fonction toutes les 5 secondes. Elle va vérifier si tous les musiciens
+présent dans la map ont été actifs durant les dernières 5secondes. Si ce n'est pas les cas ils sont delete.|
 |Question | How do I implement a **simple TCP server** in Node.js?  |
-| | *Enter your response here...* |
+| | Avec un socket net on peut utiliser la fonction createServer |
 
 
 ## Task 5: package the "auditor" app in a Docker image
@@ -175,7 +178,10 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | How do we validate that the whole system works, once we have built our Docker image? |
-| | *Enter your response here...* |
+| | Quand on lance un container musicien "docker run res/musicien flute", l'on doit voir qu'il envoit
+un datagramme toutes les secondes (grâce à un console.log) comme configuré dans le fichier index.js. Grâce à tcpdump nous
+pouvons aussi observer que tous les musiciens lancés envoyent un datagramme toutes les secondes. Quand on lance l'auditeur on peut observer (consol.log) qu'il recoit des datagrammes grâce à son membership à l'adresse multicast. Telnet nous permet
+de nous connecter à l'auditeur grâce à une connexion tcp (telnet ip port) et un tableau contenant tous les musiciens actifs doit nous être retourné. Si un musicien devient inactif lors de la prochaine connexion tcp (>5sec plus tard) il ne devra plus apparaître dans le tableau. |
 
 
 ## Constraints
