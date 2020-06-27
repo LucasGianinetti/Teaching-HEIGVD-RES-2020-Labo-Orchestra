@@ -178,6 +178,10 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | | Quand on lance un container musicien "docker run res/musicien flute", l'on doit voir qu'il envoit un datagramme toutes les secondes (grâce à un console.log) comme configuré dans le fichier index.js. Grâce à tcpdump nous pouvons aussi observer que tous les musiciens lancés envoyent un datagramme toutes les secondes. Quand on lance l'auditeur on peut observer (consol.log) qu'il recoit des datagrammes grâce à son membership à l'adresse multicast. Telnet nous permet de nous connecter à l'auditeur grâce à une connexion tcp (telnet ip port) et un tableau contenant tous les musiciens actifs doit nous être retourné. Si un musicien devient inactif lors de la prochaine connexion tcp (>5sec plus tard) il ne devra plus apparaître dans le tableau. |
 
 
+## Demo of the lab 
+
+![](./images/orchestra.gif)
+
 ## Constraints
 
 Please be careful to adhere to the specifications in this document, and in particular

@@ -21,9 +21,9 @@ s.bind(protocol_UDP.PROTOCOL_PORT, function() {
 });
 
 
-const musicians = new Map();
+let musicians = new Map();
 
-var  musician = new Object();
+let  musician = new Object();
 
 const instruments = new Map();
 instruments.set("ti-ta-ti","piano");
@@ -33,15 +33,18 @@ instruments.set("gzi-gzi","violin");
 instruments.set("boum-boum","drum");
 
 
-var instrument;
+let instru;
+
 s.on('message', function(msg,source){
 	const toString = JSON.parse(msg.toString());
 
+    let  musician = new Object();
+    
 	if(!musicians.has(toString.uuid)){
 		console.log("Je ne suis pas encore dans la map");
-		instrument = instruments.get(toString.sound);
-		console.log("Instrument: " + instrument);
-		musician.instrument = instrument;
+		instru = instruments.get(toString.sound);
+		console.log("Instrument: " + instru);
+		musician.instrument = instru;
 		musician.activeSince = toString.activeSince;
 		musician.sendTime = toString.sendTime;
 
@@ -52,7 +55,16 @@ s.on('message', function(msg,source){
 		musician.sendTime = toString.sendTime;
 		musicians.set(toString.uuid,musician);
 	}
+	
 	console.log("Data has arrived: " + msg + ". Source IP: " + source.address + ". Source port: " + source.port);
+    
+    //We delete musician here and on setInterval function because it works :P But we couldn't figure out
+    //why it is not working without both deletion
+    for( let [uuid, musician] of musicians) {
+		if(date.subtract(new Date(),new Date(musician.sendTime)).toSeconds() > 5){
+			musicians.delete(uuid);
+		}
+	}
 });
 
 net.createServer((sock) => {
@@ -67,8 +79,8 @@ net.createServer((sock) => {
 	}
 	
 	sock.write(JSON.stringify(musiciansArray));
+    sock.end();
 }).listen(protocol_TCP.PROTOCOL_PORT);
-
 
 
 setInterval(function(){
@@ -79,6 +91,9 @@ setInterval(function(){
 	}
 
 }, 5000);
+
+
+ 
 
 
 
